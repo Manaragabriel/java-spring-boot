@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.domain.ItemPedido;
 import com.example.demo.domain.Pagamento;
@@ -33,7 +34,7 @@ public class PedidoService {
 	private PagamentoRepository pag_repo;
 	
 	@Autowired
-	private ProdutoRepository repo_produto;
+	private ProdutoService prod_serv;
 	
 	@Autowired 
 	private ItemPedidoRepository item_repo;
@@ -42,7 +43,7 @@ public class PedidoService {
 		Optional<Pedido> ped= pedido_repo.findById(id);
 		return ped.orElseThrow(()-> new ObjectNotFoundException("Objeto não encontrado"));
 	}
-	
+	@Transactional
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
@@ -56,8 +57,7 @@ public class PedidoService {
 		pag_repo.save(obj.getPagamento());
 		for(ItemPedido pd: obj.getItens()) {
 			pd.setDesconto(0.0);
-			Optional<Produto> prod= repo_produto.findById(pd.getProduto().getId());
-			pd.setPreco();
+			pd.setPreco(prod_serv.find(pd.getProduto().getId()).getPreco());
 			pd.setPedido(obj);
 			
 		}
