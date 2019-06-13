@@ -39,6 +39,12 @@ public class PedidoService {
 	@Autowired 
 	private ItemPedidoRepository item_repo;
 	
+	@Autowired
+	private ClienteService cliente_service;
+	
+	@Autowired
+	private EmailService email_service;
+	
 	public Pedido find(Integer id) {
 		Optional<Pedido> ped= pedido_repo.findById(id);
 		return ped.orElseThrow(()-> new ObjectNotFoundException("Objeto não encontrado"));
@@ -47,6 +53,7 @@ public class PedidoService {
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
+		obj.setCliente(cliente_service.find(obj.getCliente().getId()));
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
 		if(obj.getPagamento() instanceof PagamentoComBoleto) {
@@ -63,6 +70,7 @@ public class PedidoService {
 		}
 
 		item_repo.saveAll(obj.getItens());
+		//email_service.sendOrderConfirmationHtmlEmail(obj);
 		return obj;
 	}
 }

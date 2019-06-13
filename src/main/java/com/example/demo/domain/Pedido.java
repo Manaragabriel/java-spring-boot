@@ -1,8 +1,11 @@
 package com.example.demo.domain;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -138,11 +141,29 @@ public class Pedido implements Serializable {
 	public void setItens(Set<ItemPedido> itens) {
 		this.itens = itens;
 	}
+	
 
 	@Override
 	public String toString() {
-		return "Pedido [id=" + id + ", instante=" + instante + ", pagamento=" + pagamento + ", cliente=" + cliente
-				+ ", endereco=" + endereco + ", itens=" + itens + "]";
+		SimpleDateFormat smp= new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		NumberFormat nb= NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
+		StringBuilder builder= new StringBuilder();
+		builder.append("ID do pedido: ");
+		builder.append(getId());
+		builder.append(", Cliente: ");
+		builder.append(getCliente().getNome());
+		builder.append(", Data: ");
+		builder.append(smp.format(getInstante()));
+		builder.append(", Estado pagamento: ");
+		builder.append(getPagamento().getEstado());
+		builder.append("\nDetalhes: \n");
+		for(ItemPedido pd: getItens()) {
+			builder.append(pd.toString());
+		}
+		builder.append("Valor total:");
+		builder.append(nb.format(getTotal()));
+		return builder.toString();
+		
 	}
 	
 	
