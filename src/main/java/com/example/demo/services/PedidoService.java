@@ -42,8 +42,8 @@ public class PedidoService {
 	@Autowired
 	private ClienteService cliente_service;
 	
-	@Autowired
-	private EmailService email_service;
+	//@Autowired
+	//private EmailService email_service;
 	
 	public Pedido find(Integer id) {
 		Optional<Pedido> ped= pedido_repo.findById(id);

@@ -35,7 +35,17 @@ public class ClienteNewDTO implements Serializable{
 	private String cep;
 	private Integer cidade;
 	private Integer tipo;
+	@NotEmpty
+	private String password;
 	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getTelefone() {
 		return telefone;
 	}
@@ -59,7 +69,7 @@ public class ClienteNewDTO implements Serializable{
 	public ClienteNewDTO(Integer id,
 			@NotEmpty(message = "Tem que ser preenchido") @Length(min = 3, max = 50, message = "Digite um tamanho valido") String nome,
 			@Email String email, String cpf_cnpj, String logradouro, String numero, String complemento, String bairro,
-			String cep, Integer cidade,Integer tipo) {
+			String cep, Integer cidade,Integer tipo,String password) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -72,6 +82,7 @@ public class ClienteNewDTO implements Serializable{
 		this.cep = cep;
 		this.cidade = cidade;
 		this.tipo= tipo;
+		this.password= password;
 	}
 
 	public Integer getId() {

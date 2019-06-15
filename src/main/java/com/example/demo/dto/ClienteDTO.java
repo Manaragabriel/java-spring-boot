@@ -20,14 +20,25 @@ public class ClienteDTO implements Serializable{
 	private String nome;
 	@Email
 	private String email;
+	private String password;
 	
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public ClienteDTO() {}
 
-	public ClienteDTO(Integer id, String nome, String email) {
+	public ClienteDTO(Integer id, String nome, String email,String password) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
+		this.password= password;
 	}
 
 	public Integer getId() {
