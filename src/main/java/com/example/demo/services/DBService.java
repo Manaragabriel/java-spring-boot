@@ -88,7 +88,7 @@ public class DBService {
 		estado_repo.saveAll(Arrays.asList(e1,e2));
 		cidade_repo.saveAll(Arrays.asList(c1,c2));
 		Cliente cliente= new Cliente(null,"Gabriel","gabrielmanara2010@hotmail.com","431.578.448-65",TipoCliente.PESSOAFISICA,enc.encode("123"));
-		Cliente cliente2= new Cliente(null,"Luke","luke@hotmail.com," ,"855.707.140-06",TipoCliente.PESSOAFISICA,enc.encode("123"));
+		Cliente cliente2= new Cliente(null,"Luke","luke@hotmail.com" ,"855.707.140-06",TipoCliente.PESSOAFISICA,enc.encode("123"));
 		cliente.getTelefones().addAll(Arrays.asList("3333","3444"));
 		Endereco end= new Endereco(null,"rua","200","comṕlemento","bairro","222",cliente,c1);
 		Endereco end2= new Endereco(null,"rua2","2002","comṕlementop","bairroo","2222",cliente,c2);
